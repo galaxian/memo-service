@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -32,5 +33,13 @@ export class MemoController {
   @Get('/:id')
   findMemo(@Param('id') id: number): Promise<MemoResponseDto> {
     return this.memoservice.findMemo(id);
+  }
+
+  @Put('/:id')
+  updateMemo(
+    @Param('id') id: number,
+    @Body() createMemoRequestDto: CreateMemoRequestDto,
+  ): Promise<MemoResponseDto> {
+    return this.memoservice.updateMemo(id, createMemoRequestDto);
   }
 }
