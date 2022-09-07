@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
   UsePipes,
@@ -33,21 +34,23 @@ export class MemoController {
   }
 
   @Get('/:id')
-  findMemo(@Param('id') id: number): Promise<MemoResponseDto> {
+  findMemo(@Param('id', ParseIntPipe) id: number): Promise<MemoResponseDto> {
     return this.memoservice.findMemo(id);
   }
 
   @Put('/:id')
+  @UsePipes(ValidationPipe)
   updateMemo(
-    @Param('id') id: number,
+    @Param('id', ParseIntPipe) id: number,
     @Body() createMemoRequestDto: CreateMemoRequestDto,
   ): Promise<MemoResponseDto> {
     return this.memoservice.updateMemo(id, createMemoRequestDto);
   }
 
   @Delete('/:id')
+  @UsePipes(ValidationPipe)
   deleteMemo(
-    @Param('id') id: number,
+    @Param('id', ParseIntPipe) id: number,
     @Body() authCredentialDto: AuthCredentialDto,
   ): void {
     this.memoservice.deleteMemo(id, authCredentialDto);
