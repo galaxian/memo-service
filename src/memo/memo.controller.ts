@@ -1,12 +1,14 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   Param,
   ParseIntPipe,
   Post,
   Put,
+  Query,
   UsePipes,
   ValidationPipe,
   Version,
@@ -60,5 +62,13 @@ export class MemoController {
     @Body() authCredentialDto: AuthCredentialDto,
   ): void {
     this.memoservice.deleteMemo(id, authCredentialDto);
+  }
+
+  @Version('2')
+  @Get('/')
+  findAllMemoPage(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+  ): Promise<MemoResponseDto[]> {
+    return this.memoservice.findAllMemoPage(page);
   }
 }

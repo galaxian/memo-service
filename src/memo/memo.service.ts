@@ -103,4 +103,21 @@ export class MemoService {
 
     await this.memoRepository.softDelete(id);
   }
+
+  async findAllMemoPage(page: number): Promise<MemoResponseDto[]> {
+    const take = 20;
+
+    const findMemoPage: Memo[] = await this.memoRepository.find({
+      take,
+      skip: (page - 1) * take,
+    });
+
+    const response: MemoResponseDto[] = [];
+
+    findMemoPage.forEach((element) => {
+      response.push(element.toResponse());
+    });
+
+    return response;
+  }
 }
