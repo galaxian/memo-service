@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateMemoRequestDto } from './dto/createMemoRequest.dto';
@@ -38,6 +38,18 @@ export class MemoService {
     result.forEach((element) => {
       response.push(element.toResponse());
     });
+
+    return response;
+  }
+
+  async findMemo(id: number): Promise<MemoResponseDto> {
+    const findMemo: Memo = await this.memoRepository.findOneBy({ id });
+
+    if (!findMemo) {
+      throw new NotFoundException(`${id}번 메모가 존재하지 않습니다.`);
+    }
+
+    const response: MemoResponseDto = findMemo.toResponse();
 
     return response;
   }

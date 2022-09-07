@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   UsePipes,
   ValidationPipe,
@@ -26,5 +27,10 @@ export class MemoController {
   @Get('/')
   findAllMemo(): Promise<MemoResponseDto[]> {
     return this.memoservice.findAllMemo();
+  }
+
+  @Get('/:id')
+  findMemo(@Param('id') id: number): Promise<MemoResponseDto> {
+    return this.memoservice.findMemo(id);
   }
 }
