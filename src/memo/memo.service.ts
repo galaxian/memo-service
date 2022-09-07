@@ -37,7 +37,9 @@ export class MemoService {
   }
 
   async findAllMemo(): Promise<MemoResponseDto[]> {
-    const result: Memo[] = await this.memoRepository.find();
+    const result: Memo[] = await this.memoRepository.find({
+      order: { createAt: 'DESC' },
+    });
 
     const response: MemoResponseDto[] = [];
     result.forEach((element) => {
@@ -108,6 +110,9 @@ export class MemoService {
     const take = 20;
 
     const findMemoPage: Memo[] = await this.memoRepository.find({
+      order: {
+        createAt: 'DESC',
+      },
       take,
       skip: (page - 1) * take,
     });
