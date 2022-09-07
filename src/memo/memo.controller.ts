@@ -9,6 +9,7 @@ import {
   Put,
   UsePipes,
   ValidationPipe,
+  Version,
 } from '@nestjs/common';
 import { get } from 'http';
 import { AuthCredentialDto } from './dto/authCredential.dto';
@@ -16,10 +17,11 @@ import { CreateMemoRequestDto } from './dto/createMemoRequest.dto';
 import { MemoResponseDto } from './dto/memoResponse.dto';
 import { MemoService } from './memo.service';
 
-@Controller('api/memos')
+@Controller({ path: '/memos', version: ['1', '2'] })
 export class MemoController {
   constructor(private readonly memoservice: MemoService) {}
 
+  @Version('1')
   @Post('/')
   @UsePipes(ValidationPipe)
   createMemo(
@@ -28,16 +30,19 @@ export class MemoController {
     return this.memoservice.createMemo(createMemoDto);
   }
 
+  @Version('1')
   @Get('/')
   findAllMemo(): Promise<MemoResponseDto[]> {
     return this.memoservice.findAllMemo();
   }
 
+  @Version('1')
   @Get('/:id')
   findMemo(@Param('id', ParseIntPipe) id: number): Promise<MemoResponseDto> {
     return this.memoservice.findMemo(id);
   }
 
+  @Version('1')
   @Put('/:id')
   @UsePipes(ValidationPipe)
   updateMemo(
@@ -47,6 +52,7 @@ export class MemoController {
     return this.memoservice.updateMemo(id, createMemoRequestDto);
   }
 
+  @Version('1')
   @Delete('/:id')
   @UsePipes(ValidationPipe)
   deleteMemo(
