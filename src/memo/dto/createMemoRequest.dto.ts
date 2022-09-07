@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
-export class CreateMemoDto {
+export class CreateMemoRequestDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(20)
