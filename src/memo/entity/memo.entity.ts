@@ -15,7 +15,7 @@ export class Memo {
     type: Number,
     description: 'id',
   })
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment')
   id: number;
 
   @ApiProperty({

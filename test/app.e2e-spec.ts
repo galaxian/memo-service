@@ -29,6 +29,7 @@ describe('AppController (e2e)', () => {
 
   afterAll(async () => {
     await memoRepository.query('DELETE FROM memo');
+    await memoRepository.query('ALTER SEQUENCE memo_id_seq RESTART WITH 1');
     await app.close();
   });
 
@@ -42,7 +43,10 @@ describe('AppController (e2e)', () => {
   describe('/memos', () => {
     describe('getAll', () => {
       it('get', () => {
-        return request(app.getHttpServer()).get('/memos').expect(200);
+        return request(app.getHttpServer())
+          .get('/memos')
+          .expect(200)
+          .expect([]);
       });
     });
 
@@ -82,7 +86,7 @@ describe('AppController (e2e)', () => {
     describe('update', () => {
       it('메모 수정 성공', () => {
         return request(app.getHttpServer())
-          .put('/memos/19')
+          .put('/memos/1')
           .send({
             title: '수정',
             content: '내용',
@@ -103,7 +107,7 @@ describe('AppController (e2e)', () => {
       });
       it('비밀번호 불일치', () => {
         return request(app.getHttpServer())
-          .put('/memos/19')
+          .put('/memos/1')
           .send({
             title: '수정실패',
             content: '내용수정실패',
