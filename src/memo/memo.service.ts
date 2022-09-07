@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -22,6 +23,11 @@ export class MemoService {
     createMemoDto: CreateMemoRequestDto,
   ): Promise<MemoResponseDto> {
     const { title, content, password } = createMemoDto;
+
+    if (password.search(/[0-9]/g) < 0) {
+      throw new BadRequestException('비밀번호는 숫자가 포함되어야 합니다.');
+    }
+
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
 
