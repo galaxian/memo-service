@@ -93,7 +93,7 @@ describe('AppController (e2e)', () => {
             password: 'password12',
           })
           .expect(200)
-          .expect({ memoId: 19, title: '수정', content: '내용' });
+          .expect({ memoId: 1, title: '수정', content: '내용' });
       });
       it('존재하지 않는 메모 수정', () => {
         return request(app.getHttpServer())
