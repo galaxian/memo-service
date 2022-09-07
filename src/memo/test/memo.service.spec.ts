@@ -20,6 +20,7 @@ describe('MemoService', () => {
     create: jest.fn(),
     save: jest.fn(),
     find: jest.fn(),
+    findOneBy: jest.fn(),
   };
 
   beforeEach(async () => {
@@ -130,6 +131,38 @@ describe('MemoService', () => {
 
       //then
       expect(result).toEqual(expected);
+    });
+  });
+
+  describe('findMemo', () => {
+    it('memoId로 메모 조회', async () => {
+      //given
+      const findMemo: Memo = {
+        id: 1,
+        title: '제목1',
+        content: '내용1',
+        password: 'hash비밀번호',
+        createAt: undefined,
+        updateAt: undefined,
+        deleteAt: undefined,
+        toResponse: function (): MemoResponseDto {
+          return {
+            memoId: this.id,
+            title: this.title,
+            content: this.content,
+          };
+        },
+      };
+
+      mockMemoRepository.findOneBy.mockImplementation(({ id }) => findMemo);
+
+      //when
+      const id = 1;
+
+      const result = await memoService.findMemo(id);
+
+      //then
+      expect(result).toEqual(findMemo.toResponse());
     });
   });
 });
