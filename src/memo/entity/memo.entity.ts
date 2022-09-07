@@ -17,6 +17,7 @@ export class Memo {
 
   toResponse(): MemoResponseDto {
     return {
+      memoId: this.id,
       title: this.title,
       content: this.content,
     };

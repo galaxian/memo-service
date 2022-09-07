@@ -1,6 +1,10 @@
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { IsInt, IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
 export class MemoResponseDto {
+  @IsNotEmpty()
+  @IsInt()
+  readonly memoId: number;
+
   @IsNotEmpty()
   @IsString()
   @MaxLength(20)
