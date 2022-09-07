@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { MemoResponseDto } from '../dto/memoResponse.dto';
 
 @Entity()
@@ -14,6 +21,15 @@ export class Memo {
 
   @Column({ type: 'varchar', length: 100, nullable: false })
   password: string;
+
+  @CreateDateColumn()
+  createAt: Date;
+
+  @UpdateDateColumn()
+  updateAt: Date;
+
+  @DeleteDateColumn()
+  deleteAt: Date;
 
   toResponse(): MemoResponseDto {
     return {
