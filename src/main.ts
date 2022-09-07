@@ -9,9 +9,6 @@ const serverConfig = config.get('server');
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  setupSwagger(app);
-  const port = serverConfig.port;
-
   app.enableVersioning({
     type: VersioningType.URI,
     prefix: 'v',
@@ -19,6 +16,9 @@ async function bootstrap() {
   });
 
   app.setGlobalPrefix('/api');
+
+  setupSwagger(app);
+  const port = serverConfig.port;
 
   await app.listen(port);
 }

@@ -6,6 +6,7 @@ export function setupSwagger(app: INestApplication): void {
     .setTitle('memo-service API docs')
     .setDescription('memo-service API description')
     .setVersion('1.0.0')
+    .addTag('api')
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
