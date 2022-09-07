@@ -129,5 +129,26 @@ describe('AppController (e2e)', () => {
         return request(app.getHttpServer()).get('/memos/100').expect(404);
       });
     });
+
+    describe('delete', () => {
+      it('비밀번호 불일치', () => {
+        request(app.getHttpServer())
+          .delete('/memos/1')
+          .send({ password: 'password1234' })
+          .expect(401);
+      });
+      it('존재하지 않는 memo 삭제', () => {
+        request(app.getHttpServer())
+          .delete('/memos/22')
+          .send({ password: 'password12' })
+          .expect(404);
+      });
+      it('pk를 사용하여 memo 삭제', () => {
+        request(app.getHttpServer())
+          .delete('/memos/22')
+          .send({ password: 'password12' })
+          .expect(200);
+      });
+    });
   });
 });
