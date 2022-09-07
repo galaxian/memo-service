@@ -1,73 +1,60 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# 띵스플로우 기업과제
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## 1️⃣ 프로젝트 설명⚡️
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+<pre>프리온보딩 2번째 과제
+비밀번호를 통해 게시글 수정 및 삭제가 가능한 간단한 메모 작성이 가능한 서비스
+</pre>
 
-## Description
+</br></br>
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 2️⃣ 프로젝트 요약🌈
 
-## Installation
+- 기간 : 2022.09.06 ~ 2022.09.07
+- 개발 언어 : Javascript
+- 개발 라이브러리 : NestJs
 
-```bash
-$ npm install
-```
+</br>
 
-## Running the app
+## 3️⃣ ERD✨
 
-```bash
-# development
-$ npm run start
+## 4️⃣ API 명세✨
 
-# watch mode
-$ npm run start:dev
+## 5️⃣ 요구사항 분석🌟
 
-# production mode
-$ npm run start:prod
-```
+### ① 게시글 등록
 
-## Test
+- 필요한 데이터는 제목, 본문, 비밀번호
+- 비밀번호는 암호화 되어야 하고 수정 및 삭제 권한으로 사용됨
+- 제목은 최대 20, 본문은 최대 200자, 이모지 사용가능
 
-```bash
-# unit tests
-$ npm run test
+### ② 게시글 조회
 
-# e2e tests
-$ npm run test:e2e
+- 필요한 데이터는 조회할 게시글 id
+- 게시글이 존재하지 않을 경우 notfoundexception
 
-# test coverage
-$ npm run test:cov
-```
+### ③ 게시글 전체 조회
 
-## Support
+- 필요한 데이터 없음
+- 게시글이 없는 경우 빈 배열 반환
+- 정렬은 최신순으로 정렬
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### ④ 게시글 수정
 
-## Stay in touch
+- 필요한 데이터는 제목, 본문, 비밀번호, 게시글 id
+- 비밀번호가 일치하지 않을 시 unauthorizedexception
+- 게시글이 존재하지 않을 경우 notfoundexception
+- 부분만 수정이 가능하도록 patch method 사용
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### ⑤ 게시글 삭제
 
-## License
+- 필요한 데이터는 비밀번호, 게시글 id
+- 비밀번호가 일치하지 않을 시 unauthorizedexception
+- 게시글이 존재하지 않을 경우 notfoundexception
 
-Nest is [MIT licensed](LICENSE).
+### ⑥ 비밀번호
+
+- bycript를 사용해 암호화
+- 6자 이상이어야 하고 숫자가 포함되어야 하므로 정규식을 사용
+
+</br>
