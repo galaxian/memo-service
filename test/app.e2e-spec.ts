@@ -2,9 +2,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
+import { Memo } from './../src/memo/entity/memo.entity';
+import { Repository } from 'typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
+  let memoRepository: Repository<Memo>;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -20,6 +24,12 @@ describe('AppController (e2e)', () => {
       }),
     );
     await app.init();
+    memoRepository = moduleFixture.get(getRepositoryToken(Memo));
+  });
+
+  afterAll(async () => {
+    await memoRepository.query('DELETE FROM memo');
+    await app.close();
   });
 
   it('/ (GET)', () => {
