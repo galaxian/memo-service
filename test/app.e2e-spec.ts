@@ -35,5 +35,38 @@ describe('AppController (e2e)', () => {
         return request(app.getHttpServer()).get('/memos').expect(200);
       });
     });
+
+    describe('post', () => {
+      it('메모 작성 성공', () => {
+        return request(app.getHttpServer())
+          .post('/memos')
+          .send({
+            title: '제목',
+            content: '내용',
+            password: 'password12',
+          })
+          .expect(201);
+      });
+      it('비밀번호 6자 미만 시 400', () => {
+        return request(app.getHttpServer())
+          .post('/memos')
+          .send({
+            title: '제목',
+            content: '내용',
+            password: 'pass1',
+          })
+          .expect(400);
+      });
+      it('비밀번호 숫자 없을 시 400', () => {
+        return request(app.getHttpServer())
+          .post('/memos')
+          .send({
+            title: '제목',
+            content: '내용',
+            password: 'password',
+          })
+          .expect(400);
+      });
+    });
   });
 });
