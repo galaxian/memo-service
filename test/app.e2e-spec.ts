@@ -68,5 +68,39 @@ describe('AppController (e2e)', () => {
           .expect(400);
       });
     });
+
+    describe('update', () => {
+      it('메모 수정 성공', () => {
+        return request(app.getHttpServer())
+          .put('/memos/19')
+          .send({
+            title: '수정',
+            content: '내용',
+            password: 'password12',
+          })
+          .expect(200)
+          .expect({ memoId: 19, title: '수정', content: '내용' });
+      });
+      it('존재하지 않는 메모 수정', () => {
+        return request(app.getHttpServer())
+          .put('/memos/2000')
+          .send({
+            title: '수정',
+            content: '내용',
+            password: 'password12',
+          })
+          .expect(404);
+      });
+      it('비밀번호 불일치', () => {
+        return request(app.getHttpServer())
+          .put('/memos/19')
+          .send({
+            title: '수정실패',
+            content: '내용수정실패',
+            password: 'password13',
+          })
+          .expect(401);
+      });
+    });
   });
 });
