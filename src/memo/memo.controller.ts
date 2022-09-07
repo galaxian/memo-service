@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { get } from 'http';
 import { CreateMemoRequestDto } from './dto/createMemoRequest.dto';
-import { memoResponseDto } from './dto/memoResponse.dto';
+import { MemoResponseDto } from './dto/memoResponse.dto';
 import { MemoService } from './memo.service';
 
 @Controller('api/memos')
@@ -19,12 +19,12 @@ export class MemoController {
   @UsePipes(ValidationPipe)
   createMemo(
     @Body() createMemoDto: CreateMemoRequestDto,
-  ): Promise<memoResponseDto> {
+  ): Promise<MemoResponseDto> {
     return this.memoservice.createMemo(createMemoDto);
   }
 
   @Get('/')
-  findAllMemo(): Promise<memoResponseDto[]> {
+  findAllMemo(): Promise<MemoResponseDto[]> {
     return this.memoservice.findAllMemo();
   }
 }

@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
-export class memoResponseDto {
+export class MemoResponseDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(20)

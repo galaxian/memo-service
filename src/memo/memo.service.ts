@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { CreateMemoRequestDto } from './dto/createMemoRequest.dto';
 import { Memo } from './entity/memo.entity';
 import * as bcrypt from 'bcryptjs';
-import { memoResponseDto } from './dto/memoResponse.dto';
+import { MemoResponseDto } from './dto/memoResponse.dto';
 
 @Injectable()
 export class MemoService {
@@ -15,7 +15,7 @@ export class MemoService {
 
   async createMemo(
     createMemoDto: CreateMemoRequestDto,
-  ): Promise<memoResponseDto> {
+  ): Promise<MemoResponseDto> {
     const { title, content, password } = createMemoDto;
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -31,10 +31,10 @@ export class MemoService {
     return creatMemo.toResponse();
   }
 
-  async findAllMemo(): Promise<memoResponseDto[]> {
+  async findAllMemo(): Promise<MemoResponseDto[]> {
     const result: Memo[] = await this.memoRepository.find();
 
-    const response: memoResponseDto[] = [];
+    const response: MemoResponseDto[] = [];
     result.forEach((element) => {
       response.push(element.toResponse());
     });
