@@ -5,6 +5,7 @@ import { AppModule } from './../src/app.module';
 import { Memo } from './../src/memo/entity/memo.entity';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { AuthCredentialDto } from 'src/memo/dto/authCredential.dto';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -114,6 +115,18 @@ describe('AppController (e2e)', () => {
             password: 'password13',
           })
           .expect(401);
+      });
+    });
+
+    describe('get one', () => {
+      it('pk를 사용해 memo 조회 성공', () => {
+        return request(app.getHttpServer())
+          .get('/memos/1')
+          .expect(200)
+          .expect({ memoId: 1, title: '수정', content: '내용' });
+      });
+      it('존재하지 않는 memo 조회', () => {
+        return request(app.getHttpServer()).get('/memos/100').expect(404);
       });
     });
   });
