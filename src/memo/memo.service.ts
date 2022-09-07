@@ -30,4 +30,15 @@ export class MemoService {
 
     return creatMemo.toResponse();
   }
+
+  async findAllMemo(): Promise<memoResponseDto[]> {
+    const result: Memo[] = await this.memoRepository.find();
+
+    const response: memoResponseDto[] = [];
+    result.forEach((element) => {
+      response.push(element.toResponse());
+    });
+
+    return response;
+  }
 }
