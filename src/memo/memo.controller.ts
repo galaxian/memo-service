@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -9,6 +10,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { get } from 'http';
+import { AuthCredentialDto } from './dto/authCredential.dto';
 import { CreateMemoRequestDto } from './dto/createMemoRequest.dto';
 import { MemoResponseDto } from './dto/memoResponse.dto';
 import { MemoService } from './memo.service';
@@ -41,5 +43,13 @@ export class MemoController {
     @Body() createMemoRequestDto: CreateMemoRequestDto,
   ): Promise<MemoResponseDto> {
     return this.memoservice.updateMemo(id, createMemoRequestDto);
+  }
+
+  @Delete('/:id')
+  deleteMemo(
+    @Param('id') id: number,
+    @Body() authCredentialDto: AuthCredentialDto,
+  ): void {
+    this.memoservice.deleteMemo(id, authCredentialDto);
   }
 }

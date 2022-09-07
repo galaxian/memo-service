@@ -9,6 +9,7 @@ import { CreateMemoRequestDto } from './dto/createMemoRequest.dto';
 import { Memo } from './entity/memo.entity';
 import * as bcrypt from 'bcryptjs';
 import { MemoResponseDto } from './dto/memoResponse.dto';
+import { AuthCredentialDto } from './dto/authCredential.dto';
 
 @Injectable()
 export class MemoService {
@@ -82,5 +83,24 @@ export class MemoService {
     const result = updateMemo.toResponse();
 
     return result;
+  }
+
+  async deleteMemo(
+    id: number,
+    authCredentialDto: AuthCredentialDto,
+  ): Promise<void> {
+    const findMemo: Memo = await this.memoRepository.findOneBy({ id });
+
+    if (!findMemo) {
+      throw new NotFoundException(`${id}번 메모가 존재하지 않습니다.`);
+    }
+
+    if (
+      !(await bcrypt.compare(authCredentialDto.password, findMemo.password))
+    ) {
+      throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
+    }
+
+    await this.memoRepository.softDelete(id);
   }
 }
