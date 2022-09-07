@@ -19,6 +19,7 @@ describe('MemoService', () => {
   const mockMemoRepository = {
     create: jest.fn(),
     save: jest.fn(),
+    find: jest.fn(),
   };
 
   beforeEach(async () => {
@@ -75,6 +76,60 @@ describe('MemoService', () => {
 
       //then
       expect(result).toEqual(createMemo.toResponse());
+    });
+  });
+
+  describe('findAllMemo', () => {
+    it('메모 전체 조회', async () => {
+      //given
+      const findMemos: Memo[] = [
+        {
+          id: 1,
+          title: '제목1',
+          content: '내용1',
+          password: 'hash비밀번호12',
+          createAt: undefined,
+          updateAt: undefined,
+          deleteAt: undefined,
+          toResponse: function (): MemoResponseDto {
+            return {
+              memoId: this.id,
+              title: this.title,
+              content: this.content,
+            };
+          },
+        },
+        {
+          id: 2,
+          title: '제목2',
+          content: '내용2',
+          password: 'hash비밀번호12',
+          createAt: undefined,
+          updateAt: undefined,
+          deleteAt: undefined,
+          toResponse: function (): MemoResponseDto {
+            return {
+              memoId: this.id,
+              title: this.title,
+              content: this.content,
+            };
+          },
+        },
+      ];
+
+      mockMemoRepository.find.mockResolvedValue(findMemos);
+
+      //when
+      const result = await memoService.findAllMemo();
+
+      const expected: MemoResponseDto[] = [];
+
+      findMemos.forEach((element) => {
+        expected.push(element.toResponse());
+      });
+
+      //then
+      expect(result).toEqual(expected);
     });
   });
 });
