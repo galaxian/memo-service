@@ -1,73 +1,111 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# 띵스플로우 기업과제
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## 1️⃣ 프로젝트 설명⚡️
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+<pre>
+프리온보딩 2번째 과제
 
-## Description
+- CRUD가 가능한 간단한 메모 작성이 가능한 서비스입니다.
+- 로그인 없이 비밀번호를 사용해 메모를 등록하여 비밀번호를 통해 메모를 관리할 수 있습니다.
+</pre>
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+</br>
 
-## Installation
+## 2️⃣ 프로젝트 요약🌈
 
-```bash
-$ npm install
-```
+- 기간 : 2022.09.06 ~ 2022.09.07
+- 개발 언어 : Javascript
+- 개발 라이브러리 : NestJs
+- DB : postgres
 
-## Running the app
+</br>
 
-```bash
-# development
-$ npm run start
+## 3️⃣ ERD✨
 
-# watch mode
-$ npm run start:dev
+![](https://velog.velcdn.com/images/jhlee123/post/5b0e09ed-d1e6-4af1-baf3-89d60b6d5ee9/image.png)
 
-# production mode
-$ npm run start:prod
-```
+</br></br>
 
-## Test
+</br>
 
-```bash
-# unit tests
-$ npm run test
+## 4️⃣ API 명세✨
 
-# e2e tests
-$ npm run test:e2e
+![](https://velog.velcdn.com/images/jhlee123/post/d1396f8d-eb3f-4555-a456-93278c3686fa/image.png)
 
-# test coverage
-$ npm run test:cov
-```
+</br></br>
 
-## Support
+## 5️⃣ 요구사항 분석🌟
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### ① 메모 등록
 
-## Stay in touch
+- 필요한 데이터는 제목, 본문, 비밀번호
+- 비밀번호는 암호화 되어야 하고 수정 및 삭제 권한으로 사용됨
+- 제목은 최대 20, 본문은 최대 200자, 이모지 사용가능
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### ② 메모 조회
 
-## License
+- 필요한 데이터는 조회할 게시글 id
+- 메모가 존재하지 않을 경우 NotFoundException
 
-Nest is [MIT licensed](LICENSE).
+### ③ 메모 전체 조회
+
+- 필요한 데이터 없음
+- 메모가 없는 경우 빈 배열 반환
+- 정렬은 최신순으로 정렬
+
+### ④ 메모 수정
+
+- 필요한 데이터는 제목, 본문, 비밀번호, 게시글 id
+- 비밀번호가 일치하지 않을 시 UnauthorizedException
+- 메모가 존재하지 않을 경우 NotFoundException
+- 부분만 수정이 가능하도록 patch method 사용
+
+### ⑤ 메모 삭제
+
+- 필요한 데이터는 비밀번호, 게시글 id
+- 비밀번호가 일치하지 않을 시 UnauthorizedException
+- 메모가 존재하지 않을 경우 NotFoundException
+
+### ⑥ 비밀번호
+
+- bycript를 사용해 암호화
+- 6자 이상이어야 하고 숫자가 반드시 포함되어야 한다.
+- class-validator 및 구현한 로직을 사용해 유효성 검사.
+
+### ⑥ 메모 전체 조회(pagination)
+
+- 필요한 데이터는 받을 페이지 번호
+- 페이지 당 20개를 불러오도록 서버에서 설정
+- typeorm find 메서드의 skip, take를 사용해 구현
+- 최신순으로 조회하도록 정렬
+
+</br>
+
+## 6️⃣ 트러블 슈팅🚀
+
+### e2e 테스트 시 DB 초기화 문제
+
+- 문제 상황 : e2e 테스트 시 DB가 초기화되지 않아 e2e 테스트 결과가 달라지는 문제 발생
+- 해결 방안 1
+  - typeorm의 getConnection()을 사용한 DB 초기화 방식
+  - typeorm 0.3 버전에서 deprecated되어 사용 불가
+- 해결 방안 2
+  - 직접 delete 쿼리를 작성하여 테스트 DB 초기화
+  - 테스트 종료 시 DB 초기화가 확인되었으나 pk 값이 초기화가 되지 않는 문제 발생
+- 해결 방안 3
+  - 직접 쿼리를 작성하여 pk 값도 1로 초기화
+  - 테스트 할 때 마다 pk가 1부터 시작되는 것을 확인
+- 적용
+  2, 3번 사항을 적용하여 문제를 해결하였다.
+
+</br>
+
+## 7️⃣ 사용한 라이브러리(패키지)
+
+| 라이브러리명    | 내용            | 참고                     |
+| :-------------- | :-------------- | :----------------------- |
+| jest            | 테스트          | 단위테스트 및 e2e 테스트 |
+| typeorm         | ORM             | 데이터베이스와 연결      |
+| class-validator | 유효성 체크     |                          |
+| bycript         | 비밀번호 암호화 |                          |
+| swagger         | API 문서화      |                          |
